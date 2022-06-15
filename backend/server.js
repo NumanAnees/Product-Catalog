@@ -7,7 +7,8 @@ const path = require("path");
 
 const app = express();
 
-//db
+//db connection 
+require("./src/database/connection")
 
 app.get("/",(req,res)=>{
    return res.json("hye");
