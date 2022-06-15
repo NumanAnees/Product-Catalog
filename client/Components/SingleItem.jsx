@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from "next/link";
+import Image from 'next/image';
 
 
 const SingleItem = ({items,query,minPrice,maxPrice}) => {
@@ -11,7 +12,8 @@ const SingleItem = ({items,query,minPrice,maxPrice}) => {
             return(
                 <Link href={url} key={id}>
                 <article  className="menu-item pointer" >
-                    <img src="/images/img.jpeg"  alt="img" className='photo' />
+                    {/* <img src="/images/img.jpeg"  alt="img" className='photo' /> */}
+                    <Image src="https://images.pexels.com/photos/4846097/pexels-photo-4846097.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" height={150} width={150}/>
                     <div className="item-info">
                         <header>
                         <h4>{name}</h4>

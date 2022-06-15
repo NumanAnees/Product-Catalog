@@ -9,11 +9,9 @@ const app = express();
 
 //db
 
-//routes
-const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/user");
-const categoryRoutes = require("./routes/category");
-const linkRoutes = require("./routes/link");
+app.get("/",(req,res)=>{
+   return res.json("hye");
+})
 
 //app-middlewares
 app.use(morgan("dev"));

@@ -1,4 +1,4 @@
-import ItemImage from "../public/images/img.jpeg";
+import ItemImage from "/static/sofa.jpeg";
 const items = [
   {
     id: 1,
