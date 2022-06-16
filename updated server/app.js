@@ -15,9 +15,10 @@ app.use(cors({ origin: process.env.CLIENT_URL }));
 
 //routes
 const userRoutes = require("./routes/user");
+const productRoutes = require("./routes/product");
 
 //middlewares
-app.use("/api", userRoutes);
+app.use("/api", productRoutes);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`API is running on port ${port}`));
