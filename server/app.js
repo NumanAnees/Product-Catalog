@@ -1,8 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
+require("dotenv").config();
 const bodyParser = require("body-parser");
 const cors = require("cors");
-require("dotenv").config();
 const path = require("path");
 const app = express();
 

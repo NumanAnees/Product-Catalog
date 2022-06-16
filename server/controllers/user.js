@@ -51,7 +51,7 @@ exports.login = async (req, res) => {
 
   const jwtToken = jwt.sign(
     { id: userWithEmail.id, email: userWithEmail.email },
-    "helloworld123hello"
+    process.env.JWT_SECRET
   );
 
   res.json({ message: "Welcome Back!", token: jwtToken });
