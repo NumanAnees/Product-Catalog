@@ -6,5 +6,5 @@ exports.Products = async (req, res) => {
   if (!AllProducts) {
     return res.status(409).json({ message: "Sorry, cannot find products" });
   }
-  return res.json({ Products: AllProducts });
+  return res.json(AllProducts);
 };

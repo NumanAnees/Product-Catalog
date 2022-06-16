@@ -18,6 +18,7 @@ const items = [
     designer: "Jordan Peritz",
     url: "https://www.housebeautiful.com/shopping/furniture/g22548814/best-online-furniture-stores-websites/",
   },
+
   {
     id: 3,
     name: "Madrid chair",

@@ -2,14 +2,28 @@ import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import SingleItem from "../Components/SingleItem";
-import AllItems from "../data/Data";
+// import AllItems from "../data/Data";
 import styles from "../styles/Home.module.css";
 import "antd/dist/antd.css";
+import { API, APP_NAME } from "../config";
 import { Slider } from "antd";
+import axios from "axios";
 import Layout from "../Components/Layout";
 
-export default function Home() {
-  const [items, setItems] = useState(AllItems);
+//-----------------------------------------------Static Site Generation-----------------------------------------
+// export const getStaticProps = async () => {
+//   const data = await axios.get(`${API}/products`);
+//   const res = await data.json();
+//   return {
+//     props: {
+//       response,
+//     },
+//   };
+// };
+//--------------------------------------------------Home Component-----------------------------------------------
+const Home = ({ data }) => {
+  console.log("My response : " + data);
+  const [items, setItems] = useState(data);
   const [minPrice, SetMinPrice] = useState(0);
   const [maxPrice, SetMaxPrice] = useState(100);
   const [inp, SetInp] = useState("");
@@ -61,4 +75,16 @@ export default function Home() {
       </Layout>
     </>
   );
+};
+
+export async function getStaticProps() {
+  const response = await axios.get(`${API}/products`);
+
+  return {
+    props: {
+      data: response.data,
+    },
+  };
 }
+
+export default Home;
