@@ -1,49 +1,53 @@
-import { useState, useEffect } from "react";
-import Layout from "../Components/Layout";
+import { useState, useEffect, Fragment } from "react";
+import Layout from "../components/Layout";
 import Link from "next/link";
 import Router from "next/router";
 import axios from "axios";
+import { API, APP_NAME } from "../config";
+import { authenticate, isAuth } from "../helpers/auth";
 
-const login = () => {
+const Login = () => {
   const [state, setState] = useState({
     email: "",
     password: "",
+    error: "",
+    success: "",
     buttonText: "Login",
   });
+  useEffect(() => {
+    isAuth() && Router.push("/");
+  }, []);
 
-  const { email, password, buttonText } = state;
+  const { email, password, error, success, buttonText } = state;
 
   const handleChange = (name) => (e) => {
-    setState({ ...state, [name]: e.target.value, buttonText: "Login" });
+    setState({
+      ...state,
+      [name]: e.target.value,
+      error: "",
+      success: "",
+      buttonText: "Login",
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setState({ ...state, buttonText: "Registering" });
+    setState({ ...state, buttonText: "Logging in" });
     try {
-      const response = await axios.post(`${API}/register`, {
-        name,
+      const response = await axios.post(`${API}/login`, {
         email,
         password,
       });
-      console.log(response);
-      setState({
-        ...state,
-        name: "",
-        email: "",
-        password: "",
-        buttonText: "Submitted",
-        success: "Registered Successfully",
+      // console.log(response);
+      authenticate(response, () => {
+        return isAuth() && Router.push("/user");
       });
-      setTimeout(() => {
-        Router.push("/login");
-      }, 1200);
     } catch (error) {
       console.log(error);
       setState({
         ...state,
-        buttonText: "Register",
-        error: error.response.data.error,
+        buttonText: "Login",
+        error: error,
       });
     }
   };
@@ -51,7 +55,7 @@ const login = () => {
   const loginForm = () => (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
-        <label className="text-light">Email</label>
+        <label className="title-text">Email: </label>
         <input
           value={email}
           onChange={handleChange("email")}
@@ -62,7 +66,7 @@ const login = () => {
         />
       </div>
       <div className="form-group">
-        <label className="text-light">Password</label>
+        <label className="title-text">Password: </label>
         <input
           value={password}
           onChange={handleChange("password")}
@@ -79,17 +83,19 @@ const login = () => {
   );
 
   return (
-    <Layout>
-      <div className="container pt-5 pb-5 bg-col">
-        <div className="col-md-6 offset-md-3">
-          <h1 className="title-text text-center m-nav2 text-uppercase text-span">
-            Login <span className="text-span">Here</span>
-          </h1>
-          {loginForm()}
+    <Fragment>
+      <Layout>
+        <div className="container pt-5 pb-5 bg-col">
+          <div className="col-md-6 offset-md-3">
+            <h1 className="text-center title-text text-uppercase">
+              Login <span className="text-span">Here</span>
+            </h1>
+            {loginForm()}
+          </div>
         </div>
-      </div>
-    </Layout>
+      </Layout>
+    </Fragment>
   );
 };
 
-export default login;
+export default Login;

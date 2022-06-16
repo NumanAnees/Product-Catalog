@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import Router from "next/router";
+import { isAuth, logout } from "../helpers/auth";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import { MenuOutlined } from "@ant-design/icons";
 
@@ -52,27 +53,52 @@ const Layout = ({ children }) => {
           <ul className="navbar-nav ml-auto">
             <li className="nav-item p-1">
               <Link href="/">
-                <a className="nav-link text-dark font-italic text-center text-top home-btn">
+                <a className="nav-link text-dark text-center text-top home-btn">
                   {" "}
                   <span className="text-span4">Home</span>
                 </a>
               </Link>
             </li>
 
-            <li className="nav-item p-1">
-              <Link href="/login">
-                <a className="nav-link text-dark  text-center text-top">
-                  <span className="text-span4">Login</span>
-                </a>
-              </Link>
-            </li>
-            <li className="nav-item p-1">
-              <Link href="/register">
-                <a className="nav-link text-dark  text-center text-top">
-                  <span className="text-span4">Register</span>
-                </a>
-              </Link>
-            </li>
+            {!isAuth() && (
+              <>
+                <li className="nav-item p-1">
+                  <Link href="/login">
+                    <a className="nav-link text-dark  text-center text-top">
+                      <span className="text-span4">Login</span>
+                    </a>
+                  </Link>
+                </li>
+                <li className="nav-item p-1">
+                  <Link href="/register">
+                    <a className="nav-link text-dark  text-center text-top">
+                      <span className="text-span4">Register</span>
+                    </a>
+                  </Link>
+                </li>
+              </>
+            )}
+            {isAuth() && (
+              <>
+                <li className="nav-item p-1">
+                  <Link href="/user">
+                    <a className="nav-link text-dark  text-center text-top">
+                      <span className="text-span4">
+                        {isAuth().firstName} 's Dashboard
+                      </span>
+                    </a>
+                  </Link>
+                </li>
+                <li className="nav-item pointer p-1">
+                  <a
+                    onClick={logout}
+                    className="nav-link text-dark  text-center text-top"
+                  >
+                    <span className="text-span4">Logout</span>
+                  </a>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </nav>

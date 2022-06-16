@@ -49,10 +49,14 @@ exports.login = async (req, res) => {
       .status(400)
       .json({ message: "Email or password does not match!" });
 
-  const jwtToken = jwt.sign(
-    { id: userWithEmail.id, email: userWithEmail.email },
-    process.env.JWT_SECRET
-  );
+  // generate token and send to client
+  const token = jwt.sign({ _id: userWithEmail.id }, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
+  const { id, firstName, lastName } = userWithEmail;
 
-  res.json({ message: "Welcome Back!", token: jwtToken });
+  return res.json({
+    token,
+    user: { id, firstName, lastName, email },
+  });
 };

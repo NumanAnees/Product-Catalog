@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import axios from "axios";
 import { API, APP_NAME } from "../config";
-// import { authenticate, isAuth } from "../helpers/auth";
 import Router from "next/router";
-import Head from "next/head";
+
 const register = () => {
   const [state, setState] = useState({
     firstName: "",
@@ -64,7 +63,7 @@ const register = () => {
   const registerForm = () => (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
-        <label className="text-light">First Name</label>
+        <label className="title-text">First Name:</label>
         <input
           value={firstName}
           onChange={handleChange("firstName")}
@@ -75,7 +74,7 @@ const register = () => {
         />
       </div>
       <div className="form-group">
-        <label className="text-light">Last Name</label>
+        <label className="title-text">Last Name:</label>
         <input
           value={lastName}
           onChange={handleChange("lastName")}
@@ -86,7 +85,7 @@ const register = () => {
         />
       </div>
       <div className="form-group">
-        <label className="text-light">Email</label>
+        <label className="title-text">Email:</label>
         <input
           value={email}
           onChange={handleChange("email")}
@@ -97,7 +96,7 @@ const register = () => {
         />
       </div>
       <div className="form-group">
-        <label className="text-light">Password</label>
+        <label className="title-text">Password:</label>
         <input
           value={password}
           onChange={handleChange("password")}
