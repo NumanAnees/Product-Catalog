@@ -1,26 +1,14 @@
-import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import SingleItem from "../Components/SingleItem";
 // import AllItems from "../data/Data";
 import styles from "../styles/Home.module.css";
 import "antd/dist/antd.css";
-import { API, APP_NAME } from "../config";
+import { API } from "../config";
 import { Slider } from "antd";
 import axios from "axios";
 import Layout from "../Components/Layout";
 
-//-----------------------------------------------Static Site Generation-----------------------------------------
-// export const getStaticProps = async () => {
-//   const data = await axios.get(`${API}/products`);
-//   const res = await data.json();
-//   return {
-//     props: {
-//       response,
-//     },
-//   };
-// };
-//--------------------------------------------------Home Component-----------------------------------------------
 const Home = ({ data }) => {
   console.log("My response : " + data);
   const [items, setItems] = useState(data);

@@ -1,9 +1,8 @@
 import { useState, useEffect, Fragment } from "react";
-import Layout from "../components/Layout";
-import Link from "next/link";
+import Layout from "../Components/Layout";
 import Router from "next/router";
 import axios from "axios";
-import { API, APP_NAME } from "../config";
+import { API } from "../config";
 import { authenticate, isAuth } from "../helpers/auth";
 
 const Login = () => {

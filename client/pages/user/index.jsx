@@ -1,14 +1,10 @@
-import Layout from "../../components/Layout";
-import Link from "next/link";
+import Layout from "../../Components/Layout";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { getCookie, isAuth } from "../../helpers/auth";
 import { useEffect, useState } from "react";
 import { API } from "../../config";
 import SingleItem from "../../Components/SingleItem";
-import withUser from "../withUser";
-
-// import withUser from "../withUser";
 
 const User = ({ data, products }) => {
   const Arr = [];
@@ -28,7 +24,15 @@ const User = ({ data, products }) => {
 
   return (
     <>
-      <Layout>{isAuth() && <SingleItem items={Arr} Home={false} />}</Layout>
+      <Layout>
+        {Arr.length > 0 ? (
+          <SingleItem items={Arr} Home={false} />
+        ) : (
+          <h1 className="text-center title-text">
+            Sorry, You do not have any Bookmarks
+          </h1>
+        )}
+      </Layout>
     </>
   );
 };

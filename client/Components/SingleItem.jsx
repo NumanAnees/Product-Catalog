@@ -3,19 +3,34 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { isAuth } from "../helpers/auth";
+import { getCookie } from "../helpers/auth";
+import axios from "axios";
+import { API } from "../config";
 
-const SingleItem = ({
-  items,
-  query,
-  minPrice,
-  maxPrice,
-  BookmarkButton,
-  Home,
-}) => {
+const SingleItem = ({ items, query, minPrice, maxPrice, Home }) => {
   const router = useRouter();
   const handleBookmark = async (e, id) => {
     e.preventDefault();
     if (isAuth()) {
+      const userId = isAuth().id;
+      const token = getCookie("token");
+      try {
+        const response = await axios.post(
+          `${API}/newBookmark`,
+          {
+            userId,
+            id,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        alert(" Bookmark Added Successfully");
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       alert("Please Login First");
       router.push("/login");

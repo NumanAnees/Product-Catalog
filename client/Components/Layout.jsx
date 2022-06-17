@@ -1,6 +1,4 @@
-import Head from "next/head";
 import Link from "next/link";
-import Router from "next/router";
 import { isAuth, logout } from "../helpers/auth";
 import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
 import { MenuOutlined } from "@ant-design/icons";

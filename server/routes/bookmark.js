@@ -4,9 +4,10 @@ const router = express.Router();
 // import middlewares
 const { requireSignin, authMiddleware } = require("../controllers/user");
 // import controllers
-const { UserBookmarks } = require("../controllers/bookmark");
+const { UserBookmarks, newBookmarks } = require("../controllers/bookmark");
 
 // routes
 router.get("/userBookMarks", requireSignin, authMiddleware, UserBookmarks);
+router.post("/newBookmark", requireSignin, authMiddleware, newBookmarks);
 
 module.exports = router;

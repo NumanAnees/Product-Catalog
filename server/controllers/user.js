@@ -1,6 +1,7 @@
 const e = require("cors");
 const { User } = require("../models");
 const jwt = require("jsonwebtoken");
+const expressJwt = require("express-jwt");
 
 //--------------------------------Register middleware--------------------------
 
@@ -50,7 +51,7 @@ exports.login = async (req, res) => {
       .json({ message: "Email or password does not match!" });
 
   // generate token and send to client
-  const token = jwt.sign({ _id: userWithEmail.id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ id: userWithEmail.id }, process.env.JWT_SECRET, {
     expiresIn: "1d",
   });
   const { id, firstName, lastName } = userWithEmail;
@@ -59,4 +60,25 @@ exports.login = async (req, res) => {
     token,
     user: { id, firstName, lastName, email },
   });
+};
+
+//------------------------------------------------------------------------------------------
+
+exports.requireSignin = expressJwt({
+  secret: process.env.JWT_SECRET,
+  algorithms: ["sha1", "RS256", "HS256"],
+}); // req.user
+
+//------------------------------------------------------------------------------------------
+
+exports.authMiddleware = async (req, res, next) => {
+  const authUserId = req.user.id;
+  const user = await User.findOne({ where: { id: authUserId } });
+  if (!user) {
+    return res.status(400).json({
+      error: "User not found",
+    });
+  }
+  req.profile = user;
+  next();
 };
