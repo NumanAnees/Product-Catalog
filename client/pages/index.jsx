@@ -66,6 +66,7 @@ const Home = ({ data }) => {
                     query={inp}
                     minPrice={minPrice}
                     maxPrice={maxPrice}
+                    Home={true}
                   />
                 </div>
               </div>
