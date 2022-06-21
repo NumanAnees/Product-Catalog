@@ -13,7 +13,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   Bookmarks.init(
     {
-      user_id: DataTypes.INTEGER,
+      user_id: {
+        type: DataTypes.INTEGER,
+        validate: {
+          min: 4,
+          max: 10,
+        },
+      },
       product_id: DataTypes.INTEGER,
     },
     {
